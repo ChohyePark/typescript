@@ -93,3 +93,29 @@ interface User {
   skill : string
 }
 
+
+// 타입 별칭은 언제 쓰는 것이 좋을까? 타입 별칭으로만 정의할 수 있는 타입들에 대해 알아보자. 인터페이스가 아닌 타입 별칭으로만 정의할 수 있는 타입은 주요 데이터 타입이나 인터섹션, 유니언 타입이다. 인터페이스는 객체 타입을 정의할 때 사용하는 타입이기 때문에 다음 타입은 인터페이스로 정의할 수 없다.
+
+type MyString = string;
+type MyNumber = number;
+type MyBoolean = boolean;
+type StringOrNumber = string | number;
+
+// 또한 제네릭, 유틸리티 타입, 맵드 타입과도 연동하여 사용할 수 있다.
+
+// 제네릭
+type Dropdown<T> = {
+  id : string,
+  title : T;
+}
+
+// 유틸리티 타입 
+type Admin2 = {name : string; age : number; role : string};
+type OnlyName = Pick<Admin2, 'name'>
+
+// 맵드  타입
+type Picker<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+
+// 유틸리티 타입이나 맵드 타입은 기존에 정의된 타입을 변경하거나 일부만 활용할 때 사용한다.
